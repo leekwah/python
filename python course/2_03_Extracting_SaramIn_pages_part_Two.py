@@ -7,10 +7,13 @@ saramin_soup = BeautifulSoup(saramin_result.text, "html.parser")
 
 pagination = saramin_soup.find("div", {"class":"pagination"})
 #pages는 list라고 생각하면 된다.
-pages = pagination.find_all('a')
+links = pagination.find_all('a')
 
-spans = []
-for page in pages:
-  spans.append(page.find("span"))
+pages = []
+for link in links:
+  # pages.append(link.find("span").string) #안에 있는 string만 가져오는 방법
+  #pages.append(link.string) # 위에 있는 것과 같은 결과가 나온다.
+  pages.append(int(link.string))
 
-print(spans)
+max_page = pages[-1]
+print(pages[-1]) # 페이지에서 제일 큰 넘버를 찾는 법
